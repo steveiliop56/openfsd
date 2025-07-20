@@ -1,6 +1,6 @@
 services:
   fsd:
-    image: ghcr.io/renorris/openfsd:fsd-latest
+    image: ghcr.io/renorris/openfsd-fsd:latest
     restart: unless-stopped
     ports:
       - 6809:6809/tcp
@@ -11,7 +11,7 @@ services:
       - db:/db
 
   web:
-    image: ghcr.io/renorris/openfsd:web-latest
+    image: ghcr.io/renorris/openfsd-web:latest
     restart: unless-stopped
     ports:
       - 8000:8000/tcp

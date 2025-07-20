@@ -1,19 +1,19 @@
+# Builder layer
 FROM golang:1.24 AS build
 
 WORKDIR /go/src/fsdweb
+
+# Download dependencies
 COPY go.mod go.sum ./
 
-# Cache module downloads
 RUN go mod download
 
+# Build
 COPY . .
 
-# Cache builds
-ENV GOCACHE=/root/.cache/go-build
-RUN --mount=type=cache,target="/root/.cache/go-build" \
-    cd web && \
-    CGO_ENABLED=0 go build -o /go/bin/fsdweb
+RUN cd web && CGO_ENABLED=0 go build -ldflags "-s -w" -o /go/bin/fsdweb
 
+# Runner layer
 FROM alpine:latest
 
 RUN addgroup -g 2001 nonroot && \

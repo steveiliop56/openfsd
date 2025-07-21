@@ -19,11 +19,14 @@ jobs:
         id: meta
         uses: docker/metadata-action@v5
         with:
-          images: ghcr.io/${{ github.repository_owner }}/openfsd-fsd
+          images: ghcr.io/${{ github.repository_owner }}/openfsd
           tags: |
-            type=semver,pattern={{version}},prefix=v
-            type=semver,pattern={{major}},prefix=v
-            type=semver,pattern={{major}}.{{minor}},prefix=v
+            type=semver,pattern={{version}},prefix=fsd-v
+            type=semver,pattern={{major}},prefix=fsd-v
+            type=semver,pattern={{major}}.{{minor}},prefix=fsd-v
+            type=raw,fsd-latest
+          flavor: |
+            latest=false
 
       - name: Login to GitHub Container Registry
         uses: docker/login-action@v3
@@ -56,11 +59,14 @@ jobs:
         id: meta
         uses: docker/metadata-action@v5
         with:
-          images: ghcr.io/${{ github.repository_owner }}/openfsd-web
+          images: ghcr.io/${{ github.repository_owner }}/openfsd
           tags: |
-            type=semver,pattern={{version}},prefix=v
-            type=semver,pattern={{major}},prefix=v
-            type=semver,pattern={{major}}.{{minor}},prefix=v
+            type=semver,pattern={{version}},prefix=web-v
+            type=semver,pattern={{major}},prefix=web-v
+            type=semver,pattern={{major}}.{{minor}},prefix=web-v
+            type=raw,web-latest
+          flavor: |
+            latest=false
 
       - name: Login to GitHub Container Registry
         uses: docker/login-action@v3

@@ -11,7 +11,9 @@ RUN go mod download
 # Build
 COPY . .
 
-RUN GO_ENABLED=0 go build -ldflags "-s -w" -o /go/bin/fsd
+ENV GOCACHE=/root/.cache/go-build
+ENV GO_ENABLED=0
+RUN --mount=type=cache,target="/root/.cache/go-build" go build -o /go/bin/fsd
 
 # Runner layer
 FROM alpine:latest

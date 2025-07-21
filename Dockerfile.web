@@ -11,7 +11,9 @@ RUN go mod download
 # Build
 COPY . .
 
-RUN cd web && CGO_ENABLED=0 go build -ldflags "-s -w" -o /go/bin/fsdweb
+ENV GOCACHE=/root/.cache/go-build
+ENV GO_ENABLED=0
+RUN --mount=type=cache,target="/root/.cache/go-build" cd web && go build -o /go/bin/fsdweb
 
 # Runner layer
 FROM alpine:latest

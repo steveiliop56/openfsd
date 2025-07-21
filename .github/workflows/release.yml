@@ -24,7 +24,7 @@ jobs:
             type=semver,pattern={{version}},prefix=fsd-v
             type=semver,pattern={{major}},prefix=fsd-v
             type=semver,pattern={{major}}.{{minor}},prefix=fsd-v
-            type=raw,fsd-latest
+            type=raw,value=fsd-latest,enable=${{ !contains(github.ref, 'alpha') && !contains(github.ref, 'beta') }}
           flavor: |
             latest=false
 
@@ -64,7 +64,7 @@ jobs:
             type=semver,pattern={{version}},prefix=web-v
             type=semver,pattern={{major}},prefix=web-v
             type=semver,pattern={{major}}.{{minor}},prefix=web-v
-            type=raw,web-latest
+            type=raw,value=web-latest,enable=${{ !contains(github.ref, 'alpha') && !contains(github.ref, 'beta') }}
           flavor: |
             latest=false
 
